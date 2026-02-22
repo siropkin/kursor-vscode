@@ -4,7 +4,7 @@
 
 *VS Code extension for tracking keyboard language*
 
-![Kursor Demo](https://raw.githubusercontent.com/siropkin/kursor/main/readme/demo.png)
+![Kursor Demo](readme/demo.png)
 </div>
 
 > **Also available for [IntelliJ IDEA](https://github.com/siropkin/kursor)**
