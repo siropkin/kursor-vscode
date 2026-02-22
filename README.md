@@ -4,10 +4,12 @@
 
 *VS Code extension for tracking keyboard language*
 
+[![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/siropkin.kursor?style=flat-square&label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=siropkin.kursor)
+
 ![Kursor Demo](readme/demo.png)
 </div>
 
-> **Also available for [IntelliJ IDEA](https://plugins.jetbrains.com/plugin/22072-kursor)**
+> **Also available for IntelliJ IDEA: [GitHub](https://github.com/siropkin/kursor) | [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/22072-kursor)**
 
 <!-- Extension description -->
 ## What is Kursor?
