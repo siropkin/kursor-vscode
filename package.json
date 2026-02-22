@@ -1,0 +1,115 @@
+{
+  "name": "kursor",
+  "displayName": "Kursor",
+  "description": "Displays keyboard layout indicator near the cursor and optionally changes cursor color for non-default languages",
+  "version": "0.1.0",
+  "publisher": "siropkin",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siropkin/kursor-vscode"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "keyboard",
+    "language",
+    "layout",
+    "cursor",
+    "indicator"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kursor.detectLayout",
+        "title": "Kursor: Detect Current Keyboard Layout"
+      }
+    ],
+    "configuration": {
+      "title": "Kursor",
+      "properties": {
+        "kursor.defaultLanguage": {
+          "type": "string",
+          "default": "us",
+          "description": "Default keyboard language. The indicator is hidden when this language is active (unless 'Indicate Default Language' is enabled)."
+        },
+        "kursor.changeColorOnNonDefaultLanguage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Change cursor color when a non-default language is active."
+        },
+        "kursor.colorOnNonDefaultLanguage": {
+          "type": "string",
+          "default": "#FF8C00",
+          "format": "color",
+          "description": "Cursor color to use when a non-default language is active."
+        },
+        "kursor.showTextIndicator": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a text indicator near the cursor displaying the current keyboard language."
+        },
+        "kursor.indicateDefaultLanguage": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show the text indicator even when the default language is active."
+        },
+        "kursor.indicateCapsLock": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show Caps Lock status by uppercasing the language indicator. Note: limited platform support."
+        },
+        "kursor.textIndicator.fontSize": {
+          "type": "number",
+          "default": 11,
+          "minimum": 5,
+          "maximum": 20,
+          "description": "Font size of the text indicator in pixels."
+        },
+        "kursor.textIndicator.opacity": {
+          "type": "number",
+          "default": 180,
+          "minimum": 0,
+          "maximum": 255,
+          "description": "Opacity of the text indicator (0 = transparent, 255 = opaque)."
+        },
+        "kursor.textIndicator.horizontalOffset": {
+          "type": "number",
+          "default": 4,
+          "minimum": -10,
+          "maximum": 10,
+          "description": "Horizontal offset of the text indicator from the cursor in pixels."
+        },
+        "kursor.pollingInterval": {
+          "type": "number",
+          "default": 500,
+          "minimum": 100,
+          "maximum": 5000,
+          "description": "How often to check the keyboard layout in milliseconds."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "node esbuild.js --production",
+    "build": "node esbuild.js",
+    "build:prod": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.5.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
