@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-02-21
+
+### Fixed
+
+- Fix indicator position being pushed far right by inline git blame annotations.
+- Fix indicator text shifting adjacent characters (now zero-width overlay).
+- Fix cursor color staying orange after restart when closed with non-default language active.
+
 ## [0.1.0] - 2026-02-21
 
 ### Added
@@ -19,5 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Command to detect current keyboard layout and set as default.
 - Support for Sogou Pinyin and Rime Squirrel input methods on macOS.
 
-[Unreleased]: https://github.com/siropkin/kursor-vscode/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/siropkin/kursor-vscode/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/siropkin/kursor-vscode/compare/v0.1.0...v0.1.3
 [0.1.0]: https://github.com/siropkin/kursor-vscode/releases/tag/v0.1.0

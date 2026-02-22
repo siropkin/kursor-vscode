@@ -15,22 +15,40 @@ async function setColorCustomizations(
     const config = vscode.workspace.getConfiguration('workbench');
     await config.update(
         'colorCustomizations',
-        customizations,
+        Object.keys(customizations).length > 0 ? customizations : undefined,
         vscode.ConfigurationTarget.Global,
     );
 }
 
-export async function updateCursorColor(color: string | null): Promise<void> {
-    // Save original cursor color on first call
+export async function initCursorColor(extensionColor: string, log?: vscode.OutputChannel): Promise<void> {
     if (!savedOriginal) {
         const customizations = getColorCustomizations();
-        originalCursorColor = customizations['editorCursor.foreground'];
+        const current = customizations['editorCursor.foreground'];
+        // If the current color matches our extension's color, it's likely
+        // leftover from a previous session that didn't deactivate cleanly.
+        if (current && current.toLowerCase() === extensionColor.toLowerCase()) {
+            originalCursorColor = undefined;
+            log?.appendLine(`[cursorColor] Detected leftover color ${current}, cleaning up`);
+            // Immediately remove the leftover from settings
+            delete customizations['editorCursor.foreground'];
+            await setColorCustomizations(customizations);
+        } else {
+            originalCursorColor = current;
+        }
         savedOriginal = true;
+        log?.appendLine(`[cursorColor] Original cursor color: ${originalCursorColor ?? 'default'}`);
     }
+}
 
-    // Skip update if color hasn't changed
+export async function updateCursorColor(
+    color: string | null,
+    log?: vscode.OutputChannel,
+): Promise<void> {
+
     const colorOrUndefined = color ?? undefined;
     if (colorOrUndefined === currentCursorColor) return;
+
+    log?.appendLine(`[cursorColor] Changing cursor color: ${currentCursorColor ?? 'default'} → ${colorOrUndefined ?? 'default'}`);
     currentCursorColor = colorOrUndefined;
 
     const customizations = getColorCustomizations();
@@ -46,8 +64,10 @@ export async function updateCursorColor(color: string | null): Promise<void> {
     await setColorCustomizations(customizations);
 }
 
-export async function restoreCursorColor(): Promise<void> {
-    if (!savedOriginal) return;
+export async function restoreCursorColor(
+    log?: vscode.OutputChannel,
+): Promise<void> {
+    log?.appendLine(`[cursorColor] Restoring cursor color to: ${originalCursorColor ?? 'default'}`);
 
     const customizations = getColorCustomizations();
 

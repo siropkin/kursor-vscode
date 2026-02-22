@@ -19,7 +19,6 @@ function createDecorationType(
     config: KursorConfig,
 ): vscode.TextEditorDecorationType {
     const alpha = opacityToHex(config.opacity);
-    // Append alpha to the hex color
     let colorWithAlpha: string;
     if (color.startsWith('#') && color.length === 7) {
         colorWithAlpha = color + alpha;
@@ -31,12 +30,27 @@ function createDecorationType(
         after: {
             contentText: text,
             color: colorWithAlpha,
-            margin: `0 0 0 ${config.horizontalOffset}px`,
             fontWeight: 'normal',
-            textDecoration: `none; font-size: ${config.fontSize}px; position: relative; top: -0.9em`,
+            textDecoration: `none; font-size: ${config.fontSize}px; position: relative; top: -0.9em; left: ${config.horizontalOffset}px; display: inline-block; width: 0; overflow: visible; white-space: nowrap`,
         },
         rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed,
     });
+}
+
+function getDecorationRange(editor: vscode.TextEditor): vscode.Range {
+    const cursor = editor.selection.active;
+    const line = editor.document.lineAt(cursor.line);
+    // Use a single-character range so that VS Code creates a real DOM span.
+    if (cursor.character < line.range.end.character) {
+        return new vscode.Range(cursor, cursor.translate(0, 1));
+    }
+    // Cursor at end of line — decorate the last character
+    if (line.range.end.character > 0) {
+        const last = new vscode.Position(cursor.line, line.range.end.character - 1);
+        return new vscode.Range(last, line.range.end);
+    }
+    // Empty line — zero-width fallback
+    return new vscode.Range(cursor, cursor);
 }
 
 export function updateIndicator(
@@ -50,7 +64,6 @@ export function updateIndicator(
         return;
     }
 
-    // If text is null, hide the indicator
     if (text === null) {
         disposeIndicator();
         return;
@@ -75,16 +88,13 @@ export function updateIndicator(
         currentOffset = config.horizontalOffset;
     }
 
-    // Apply decoration at cursor position
-    const cursorPosition = editor.selection.active;
-    const range = new vscode.Range(cursorPosition, cursorPosition);
+    const range = getDecorationRange(editor);
     editor.setDecorations(currentDecorationType!, [{ range }]);
 }
 
 export function repositionIndicator(editor: vscode.TextEditor): void {
     if (!currentDecorationType) return;
-    const cursorPosition = editor.selection.active;
-    const range = new vscode.Range(cursorPosition, cursorPosition);
+    const range = getDecorationRange(editor);
     editor.setDecorations(currentDecorationType, [{ range }]);
 }
 

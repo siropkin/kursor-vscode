@@ -3,26 +3,35 @@ import { detectKeyboardLayout } from './keyboard/keyboard';
 import { keyboardLayoutToString, isKeyboardLayoutEmpty } from './keyboard/keyboardLayout';
 import { readConfig, KursorConfig } from './config';
 import { updateIndicator, repositionIndicator, disposeIndicator } from './indicator';
-import { updateCursorColor, restoreCursorColor } from './cursorColor';
+import { initCursorColor, updateCursorColor, restoreCursorColor } from './cursorColor';
 
 let pollingTimer: ReturnType<typeof setInterval> | undefined;
 let lastLayoutString = '';
 let config: KursorConfig;
+let isPolling = false;
+let log: vscode.OutputChannel;
 
 async function pollLayout(): Promise<void> {
-    // Skip if no visible editors
-    if (vscode.window.visibleTextEditors.length === 0) return;
+    if (isPolling) return;
+    isPolling = true;
 
-    const layout = await detectKeyboardLayout();
-    const layoutString = isKeyboardLayoutEmpty(layout)
-        ? ''
-        : keyboardLayoutToString(layout);
+    try {
+        if (vscode.window.visibleTextEditors.length === 0) return;
 
-    // Skip update if layout hasn't changed
-    if (layoutString === lastLayoutString) return;
-    lastLayoutString = layoutString;
+        const layout = await detectKeyboardLayout();
+        const layoutString = isKeyboardLayoutEmpty(layout)
+            ? ''
+            : keyboardLayoutToString(layout);
 
-    await applyLayout(layoutString);
+        if (layoutString === lastLayoutString) return;
+
+        log.appendLine(`[poll] Layout changed: "${lastLayoutString}" → "${layoutString}"`);
+        lastLayoutString = layoutString;
+
+        await applyLayout(layoutString);
+    } finally {
+        isPolling = false;
+    }
 }
 
 async function applyLayout(layoutString: string): Promise<void> {
@@ -32,9 +41,9 @@ async function applyLayout(layoutString: string): Promise<void> {
 
     // Cursor color
     if (config.changeColorOnNonDefaultLanguage && !isDefaultLanguage && layoutString !== '') {
-        await updateCursorColor(config.colorOnNonDefaultLanguage);
+        await updateCursorColor(config.colorOnNonDefaultLanguage, log);
     } else {
-        await updateCursorColor(null);
+        await updateCursorColor(null, log);
     }
 
     // Text indicator
@@ -59,6 +68,7 @@ async function applyLayout(layoutString: string): Promise<void> {
             ? config.colorOnNonDefaultLanguage
             : '#888888';
 
+    log.appendLine(`[indicator] Showing "${indicatorText}" in ${indicatorColor}`);
     updateIndicator(editor, indicatorText, indicatorColor, config);
 }
 
@@ -74,45 +84,43 @@ function stopPolling(): void {
     }
 }
 
-export function activate(context: vscode.ExtensionContext): void {
+export async function activate(context: vscode.ExtensionContext): Promise<void> {
+    log = vscode.window.createOutputChannel('Kursor');
+    log.appendLine('[activate] Kursor extension starting...');
+
     config = readConfig();
+    log.appendLine(`[activate] Config: defaultLanguage="${config.defaultLanguage}", pollingInterval=${config.pollingInterval}`);
 
-    // Start polling
+    // Save original cursor color before we modify anything
+    await initCursorColor(config.colorOnNonDefaultLanguage, log);
+
     startPolling();
-
-    // Trigger immediate check
     pollLayout();
 
-    // Update decoration position on cursor move
     context.subscriptions.push(
         vscode.window.onDidChangeTextEditorSelection((e) => {
             repositionIndicator(e.textEditor);
-            // Trigger immediate layout check on cursor move
-            pollLayout();
         }),
     );
 
-    // Update decoration when active editor changes
     context.subscriptions.push(
         vscode.window.onDidChangeActiveTextEditor(() => {
-            lastLayoutString = ''; // Force re-evaluation
-            pollLayout();
+            applyLayout(lastLayoutString);
         }),
     );
 
-    // Reload config when settings change
     context.subscriptions.push(
         vscode.workspace.onDidChangeConfiguration((e) => {
             if (e.affectsConfiguration('kursor')) {
                 config = readConfig();
-                startPolling(); // Restart with new interval
-                lastLayoutString = ''; // Force re-evaluation
+                log.appendLine(`[config] Settings changed, reloading`);
+                startPolling();
+                lastLayoutString = '';
                 pollLayout();
             }
         }),
     );
 
-    // Register detect layout command
     context.subscriptions.push(
         vscode.commands.registerCommand('kursor.detectLayout', async () => {
             const layout = await detectKeyboardLayout();
@@ -145,17 +153,20 @@ export function activate(context: vscode.ExtensionContext): void {
         }),
     );
 
-    // Cleanup on dispose
     context.subscriptions.push({
         dispose(): void {
             stopPolling();
             disposeIndicator();
         },
     });
+
+    log.appendLine('[activate] Kursor extension started');
 }
 
 export async function deactivate(): Promise<void> {
+    log?.appendLine('[deactivate] Kursor extension stopping...');
     stopPolling();
     disposeIndicator();
-    await restoreCursorColor();
+    await restoreCursorColor(log);
+    log?.appendLine('[deactivate] Kursor extension stopped');
 }
