@@ -6,6 +6,8 @@
 
 *VS Code extension for tracking keyboard language*
 
+![Visual Studio Code](https://img.shields.io/badge/VS%20Code-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white) ![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square&logo=cursor&logoColor=white)
+
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/siropkin.kursor?style=flat-square&label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=siropkin.kursor)
 [![Cursor Marketplace](https://img.shields.io/open-vsx/v/siropkin/kursor?style=flat-square&label=Cursor%20Marketplace)](https://open-vsx.org/extension/siropkin/kursor)
 
