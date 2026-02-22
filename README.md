@@ -1,5 +1,7 @@
 <div align="center">
 
+![Kursor Logo](readme/logo.svg)
+
 # Kursor
 
 *VS Code extension for tracking keyboard language*
