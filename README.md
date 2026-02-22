@@ -1,6 +1,6 @@
 <div align="center">
 
-![Kursor Logo](readme/logo.svg)
+![Kursor Logo](readme/logo.png)
 
 # Kursor
 
