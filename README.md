@@ -5,6 +5,7 @@
 *VS Code extension for tracking keyboard language*
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/siropkin.kursor?style=flat-square&label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=siropkin.kursor)
+[![Open VSX](https://img.shields.io/open-vsx/v/siropkin/kursor?style=flat-square&label=Open%20VSX)](https://open-vsx.org/extension/siropkin/kursor)
 
 ![Kursor Demo](readme/demo.png)
 </div>
