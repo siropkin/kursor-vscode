@@ -7,7 +7,7 @@
 ![Kursor Demo](readme/demo.png)
 </div>
 
-> **Also available for [IntelliJ IDEA](https://github.com/siropkin/kursor)**
+> **Also available for [IntelliJ IDEA](https://plugins.jetbrains.com/plugin/22072-kursor)**
 
 <!-- Extension description -->
 ## What is Kursor?
