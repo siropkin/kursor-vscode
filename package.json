@@ -42,31 +42,38 @@
           "default": "us",
           "description": "Default keyboard language. The indicator is hidden when this language is active (unless 'Indicate Default Language' is enabled)."
         },
-        "kursor.changeColorOnNonDefaultLanguage": {
+        "kursor.indicateCapsLock": {
           "type": "boolean",
           "default": true,
-          "description": "Change cursor color when a non-default language is active."
-        },
-        "kursor.colorOnNonDefaultLanguage": {
-          "type": "string",
-          "default": "#FF8C00",
-          "format": "color",
-          "description": "Cursor color to use when a non-default language is active."
-        },
-        "kursor.showTextIndicator": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show a text indicator near the cursor displaying the current keyboard language."
+          "description": "Show Caps Lock status by uppercasing the language indicator. Note: limited platform support."
         },
         "kursor.indicateDefaultLanguage": {
           "type": "boolean",
           "default": false,
           "description": "Show the text indicator even when the default language is active."
         },
-        "kursor.indicateCapsLock": {
+        "kursor.cursor.color": {
+          "type": "string",
+          "default": "#FF8C00",
+          "format": "color",
+          "description": "Cursor color when a non-default language is active. Leave empty to disable cursor color change."
+        },
+        "kursor.showTextIndicator": {
           "type": "boolean",
           "default": true,
-          "description": "Show Caps Lock status by uppercasing the language indicator. Note: limited platform support."
+          "description": "Show a text indicator near the cursor displaying the current keyboard language."
+        },
+        "kursor.textIndicator.color": {
+          "type": "string",
+          "default": "#000000",
+          "format": "color",
+          "description": "Text color of the language indicator."
+        },
+        "kursor.textIndicator.backgroundColor": {
+          "type": "string",
+          "default": "#FF8C00",
+          "format": "color",
+          "description": "Background color of the text indicator. Leave empty for no background. When set, creates a color block for better visibility."
         },
         "kursor.textIndicator.fontSize": {
           "type": "number",
@@ -74,20 +81,6 @@
           "minimum": 5,
           "maximum": 20,
           "description": "Font size of the text indicator in pixels."
-        },
-        "kursor.textIndicator.opacity": {
-          "type": "number",
-          "default": 180,
-          "minimum": 0,
-          "maximum": 255,
-          "description": "Opacity of the text indicator (0 = transparent, 255 = opaque)."
-        },
-        "kursor.textIndicator.horizontalOffset": {
-          "type": "number",
-          "default": 4,
-          "minimum": -10,
-          "maximum": 10,
-          "description": "Horizontal offset of the text indicator from the cursor in pixels."
         },
         "kursor.pollingInterval": {
           "type": "number",

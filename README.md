@@ -30,7 +30,7 @@ This feature is particularly beneficial for developers juggling multiple languag
 - **Cursor Color Change:** Automatically changes the cursor color based on the current language.
 - **Language Indicator:** Displays the current language near the cursor.
 - **Caps Lock Indicator:** Shows the Caps Lock status on the cursor (limited platform support).
-- **Customization:** Customize the language indicator's font size, opacity, and position.
+- **Customization:** Customize the language indicator's font size, colors, and background.
 - **Supported Operating Systems:** Available on Windows, macOS, and Linux.
 - **Supported Languages And Input Methods:** Supports a wide range of languages and input methods, including [Sogou Pinyin](https://pinyin.sogou.com/mac) and [Squirrel](https://rime.im) Zhuyin methods on macOS.
 
@@ -49,18 +49,17 @@ You can customize Kursor's settings to suit your preferences:
 3. Adjust the settings to your liking.
 
 ### Settings
-| Setting                                  | Default     | Description                                                      |
-| ---------------------------------------- | ----------- | ---------------------------------------------------------------- |
-| `kursor.defaultLanguage`                 | `"us"`      | Default keyboard language. Indicator is hidden for this language. |
-| `kursor.changeColorOnNonDefaultLanguage` | `true`      | Change cursor color for non-default languages.                   |
-| `kursor.colorOnNonDefaultLanguage`       | `"#FF8C00"` | Cursor color for non-default languages.                          |
-| `kursor.showTextIndicator`               | `true`      | Show text indicator near the cursor.                             |
-| `kursor.indicateDefaultLanguage`         | `false`     | Show indicator even for the default language.                    |
-| `kursor.indicateCapsLock`                | `true`      | Show Caps Lock status (limited platform support).                |
-| `kursor.textIndicator.fontSize`          | `11`        | Font size of the text indicator (5-20).                          |
-| `kursor.textIndicator.opacity`           | `180`       | Opacity of the text indicator (0-255).                           |
-| `kursor.textIndicator.horizontalOffset`  | `4`         | Horizontal offset from the cursor in pixels (-10 to 10).         |
-| `kursor.pollingInterval`                 | `500`       | Keyboard layout polling interval in milliseconds (100-5000).     |
+| Setting                                 | Default     | Description                                                                  |
+| --------------------------------------- | ----------- | ---------------------------------------------------------------------------- |
+| `kursor.defaultLanguage`                | `"us"`      | Default keyboard language. Indicator is hidden for this language.             |
+| `kursor.indicateCapsLock`               | `true`      | Show Caps Lock status (limited platform support).                            |
+| `kursor.indicateDefaultLanguage`        | `false`     | Show indicator even for the default language.                                |
+| `kursor.cursor.color`                   | `"#FF8C00"` | Cursor color for non-default languages. Leave empty to disable.              |
+| `kursor.showTextIndicator`              | `true`      | Show text indicator near the cursor.                                         |
+| `kursor.textIndicator.color`            | `"#000000"` | Text color of the language indicator.                                        |
+| `kursor.textIndicator.backgroundColor`  | `"#FF8C00"` | Background color of the text indicator. Leave empty for no background.       |
+| `kursor.textIndicator.fontSize`         | `11`        | Font size of the text indicator (5-20).                                      |
+| `kursor.pollingInterval`                | `500`       | Keyboard layout polling interval in milliseconds (100-5000).                 |
 
 
 ## Platform Notes

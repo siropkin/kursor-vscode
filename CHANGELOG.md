@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Separate cursor color and text indicator color into independent settings (`kursor.cursor.color`, `kursor.textIndicator.color`).
+- Remove `changeColorOnNonDefaultLanguage` toggle — leave `cursor.color` empty to disable.
+- Add `kursor.textIndicator.backgroundColor` setting for color-block visibility.
+- Remove `kursor.textIndicator.horizontalOffset` and `kursor.textIndicator.opacity` settings (now hardcoded).
+
+### Fixed
+
+- Stabilize text indicator anchoring near the caret when background color is enabled.
+- Fix indicator appearing after inline git blame annotations instead of near the cursor.
+- Fix indicator position when cursor is at end of line.
+- Fix indicator on empty lines (partially clipped due to VS Code rendering limitation).
+- Fix inconsistent text indicator style (bold/italic) depending on cursor position.
+- Use relative units (em) for indicator positioning to scale with font size.
+- Hide the text indicator while the VS Code window is unfocused and restore it when focus returns.
+
 ## [0.1.4] - 2026-02-22
 
 ### Changed

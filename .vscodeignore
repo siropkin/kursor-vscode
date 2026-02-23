@@ -1,4 +1,7 @@
 .vscode/**
+.claude/**
+.cursor/**
+.github/**
 src/**
 node_modules/**
 tsconfig.json

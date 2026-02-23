@@ -10,6 +10,7 @@ let lastLayoutString = '';
 let config: KursorConfig;
 let isPolling = false;
 let log: vscode.OutputChannel;
+let isWindowFocused = true;
 
 async function pollLayout(): Promise<void> {
     if (isPolling) return;
@@ -17,6 +18,17 @@ async function pollLayout(): Promise<void> {
 
     try {
         if (vscode.window.visibleTextEditors.length === 0) return;
+
+        const focused = vscode.window.state.focused;
+        if (focused !== isWindowFocused) {
+            isWindowFocused = focused;
+            if (!focused) {
+                disposeIndicator();
+                return;
+            }
+        }
+
+        if (!isWindowFocused) return;
 
         const layout = await detectKeyboardLayout();
         const layoutString = isKeyboardLayoutEmpty(layout)
@@ -40,10 +52,15 @@ async function applyLayout(layoutString: string): Promise<void> {
         layoutString.toLowerCase() === config.defaultLanguage.toLowerCase();
 
     // Cursor color
-    if (config.changeColorOnNonDefaultLanguage && !isDefaultLanguage && layoutString !== '') {
-        await updateCursorColor(config.colorOnNonDefaultLanguage, log);
+    if (config.cursorColor !== '' && !isDefaultLanguage && layoutString !== '') {
+        await updateCursorColor(config.cursorColor, log);
     } else {
         await updateCursorColor(null, log);
+    }
+
+    if (!isWindowFocused) {
+        disposeIndicator();
+        return;
     }
 
     // Text indicator
@@ -63,12 +80,7 @@ async function applyLayout(layoutString: string): Promise<void> {
     }
 
     const indicatorText = layoutString.toLowerCase();
-    const indicatorColor =
-        !isDefaultLanguage && config.changeColorOnNonDefaultLanguage
-            ? config.colorOnNonDefaultLanguage
-            : '#888888';
-
-    log.appendLine(`[indicator] Showing "${indicatorText}" in ${indicatorColor}`);
+    const indicatorColor = config.textIndicatorColor;
     updateIndicator(editor, indicatorText, indicatorColor, config);
 }
 
@@ -89,10 +101,11 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     log.appendLine('[activate] Kursor extension starting...');
 
     config = readConfig();
-    log.appendLine(`[activate] Config: defaultLanguage="${config.defaultLanguage}", pollingInterval=${config.pollingInterval}`);
+    isWindowFocused = vscode.window.state.focused;
+    log.appendLine(`[activate] Config: defaultLanguage="${config.defaultLanguage}", pollingInterval=${config.pollingInterval}, textIndicatorColor="${config.textIndicatorColor}", backgroundColor="${config.backgroundColor}"`);
 
     // Save original cursor color before we modify anything
-    await initCursorColor(config.colorOnNonDefaultLanguage, log);
+    await initCursorColor(config.cursorColor, log);
 
     startPolling();
     pollLayout();
@@ -105,7 +118,18 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
     context.subscriptions.push(
         vscode.window.onDidChangeActiveTextEditor(() => {
-            applyLayout(lastLayoutString);
+            void applyLayout(lastLayoutString);
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.window.onDidChangeWindowState((state) => {
+            isWindowFocused = state.focused;
+            if (!state.focused) {
+                disposeIndicator();
+                return;
+            }
+            void applyLayout(lastLayoutString);
         }),
     );
 
