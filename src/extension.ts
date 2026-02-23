@@ -102,7 +102,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
     config = readConfig();
     isWindowFocused = vscode.window.state.focused;
-    log.appendLine(`[activate] Config: defaultLanguage="${config.defaultLanguage}", pollingInterval=${config.pollingInterval}, textIndicatorColor="${config.textIndicatorColor}", backgroundColor="${config.backgroundColor}"`);
+    log.appendLine(`[activate] Config: defaultLanguage="${config.defaultLanguage}", pollingInterval=${config.pollingInterval}, textIndicatorColor="${config.textIndicatorColor}", backgroundColor="${config.textIndicatorBackgroundColor}"`);
 
     // Save original cursor color before we modify anything
     await initCursorColor(config.cursorColor, log);

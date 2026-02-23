@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Remove `changeColorOnNonDefaultLanguage` toggle — leave `cursor.color` empty to disable.
 - Add `kursor.textIndicator.backgroundColor` setting for color-block visibility.
 - Remove `kursor.textIndicator.horizontalOffset` and `kursor.textIndicator.opacity` settings (now hardcoded).
+- Remove `kursor.textIndicator.fontSize` setting — the indicator now inherits the editor's font size automatically.
 
 ### Fixed
 

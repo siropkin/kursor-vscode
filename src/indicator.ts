@@ -7,7 +7,6 @@ let currentDecorationType: vscode.TextEditorDecorationType | undefined;
 let currentEditor: vscode.TextEditor | undefined;
 let currentText: string | undefined;
 let currentColor: string | undefined;
-let currentFontSize: number | undefined;
 let currentBackgroundColor: string | undefined;
 let currentMode: IndicatorMode | undefined;
 let currentConfig: KursorConfig | undefined;
@@ -31,10 +30,10 @@ function createDecorationType(
         colorWithAlpha = color;
     }
 
-    const hasBg = config.backgroundColor.trim().length > 0;
+    const hasBg = config.textIndicatorBackgroundColor.trim().length > 0;
     let bgColorWithAlpha: string | undefined;
     if (hasBg) {
-        const bg = config.backgroundColor;
+        const bg = config.textIndicatorBackgroundColor;
         if (bg.startsWith('#') && bg.length === 7) {
             bgColorWithAlpha = bg + alpha;
         } else {
@@ -47,7 +46,6 @@ function createDecorationType(
     const textDecorationStyles = [
         'none',
         'pointer-events: none',
-        `font-size: ${config.fontSize}px`,
         'font-weight: normal',
         'font-style: normal',
         'white-space: nowrap',
@@ -170,8 +168,7 @@ export function updateIndicator(
     if (
         text !== currentText ||
         color !== currentColor ||
-        config.fontSize !== currentFontSize ||
-        config.backgroundColor !== currentBackgroundColor ||
+        config.textIndicatorBackgroundColor !== currentBackgroundColor ||
         mode !== currentMode
     ) {
         if (currentDecorationType) {
@@ -180,8 +177,7 @@ export function updateIndicator(
         currentDecorationType = createDecorationType(text, color, config, mode);
         currentText = text;
         currentColor = color;
-        currentFontSize = config.fontSize;
-        currentBackgroundColor = config.backgroundColor;
+        currentBackgroundColor = config.textIndicatorBackgroundColor;
         currentMode = mode;
         currentConfig = config;
     }
@@ -213,7 +209,6 @@ export function disposeIndicator(): void {
     currentEditor = undefined;
     currentText = undefined;
     currentColor = undefined;
-    currentFontSize = undefined;
     currentBackgroundColor = undefined;
     currentMode = undefined;
     currentConfig = undefined;

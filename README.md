@@ -30,7 +30,7 @@ This feature is particularly beneficial for developers juggling multiple languag
 - **Cursor Color Change:** Automatically changes the cursor color based on the current language.
 - **Language Indicator:** Displays the current language near the cursor.
 - **Caps Lock Indicator:** Shows the Caps Lock status on the cursor (limited platform support).
-- **Customization:** Customize the language indicator's font size, colors, and background.
+- **Customization:** Customize the language indicator's colors and background.
 - **Supported Operating Systems:** Available on Windows, macOS, and Linux.
 - **Supported Languages And Input Methods:** Supports a wide range of languages and input methods, including [Sogou Pinyin](https://pinyin.sogou.com/mac) and [Squirrel](https://rime.im) Zhuyin methods on macOS.
 
@@ -58,7 +58,6 @@ You can customize Kursor's settings to suit your preferences:
 | `kursor.showTextIndicator`              | `true`      | Show text indicator near the cursor.                                         |
 | `kursor.textIndicator.color`            | `"#000000"` | Text color of the language indicator.                                        |
 | `kursor.textIndicator.backgroundColor`  | `"#FF8C00"` | Background color of the text indicator. Leave empty for no background.       |
-| `kursor.textIndicator.fontSize`         | `11`        | Font size of the text indicator (5-20).                                      |
 | `kursor.pollingInterval`                | `500`       | Keyboard layout polling interval in milliseconds (100-5000).                 |
 
 

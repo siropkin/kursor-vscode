@@ -75,13 +75,6 @@
           "format": "color",
           "description": "Background color of the text indicator. Leave empty for no background. When set, creates a color block for better visibility."
         },
-        "kursor.textIndicator.fontSize": {
-          "type": "number",
-          "default": 11,
-          "minimum": 5,
-          "maximum": 20,
-          "description": "Font size of the text indicator in pixels."
-        },
         "kursor.pollingInterval": {
           "type": "number",
           "default": 500,
