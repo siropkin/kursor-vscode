@@ -19,8 +19,8 @@ export function readConfig(): KursorConfig {
         indicateDefaultLanguage: config.get<boolean>('indicateDefaultLanguage', false),
         cursorColor: config.get<string>('cursor.color', '#FF8C00'),
         showTextIndicator: config.get<boolean>('showTextIndicator', true),
-        textIndicatorColor: config.get<string>('textIndicator.color', '#000000'),
-        textIndicatorBackgroundColor: config.get<string>('textIndicator.backgroundColor', '#FF8C00'),
+        textIndicatorColor: config.get<string>('textIndicator.color', '#FF8C00'),
+        textIndicatorBackgroundColor: config.get<string>('textIndicator.backgroundColor', ''),
         pollingInterval: config.get<number>('pollingInterval', 500),
     };
 }

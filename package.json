@@ -65,13 +65,13 @@
         },
         "kursor.textIndicator.color": {
           "type": "string",
-          "default": "#000000",
+          "default": "#FF8C00",
           "format": "color",
           "description": "Text color of the language indicator."
         },
         "kursor.textIndicator.backgroundColor": {
           "type": "string",
-          "default": "#FF8C00",
+          "default": "",
           "format": "color",
           "description": "Background color of the text indicator. Leave empty for no background. When set, creates a color block for better visibility."
         },

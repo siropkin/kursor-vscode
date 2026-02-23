@@ -56,8 +56,8 @@ You can customize Kursor's settings to suit your preferences:
 | `kursor.indicateDefaultLanguage`        | `false`     | Show indicator even for the default language.                                |
 | `kursor.cursor.color`                   | `"#FF8C00"` | Cursor color for non-default languages. Leave empty to disable.              |
 | `kursor.showTextIndicator`              | `true`      | Show text indicator near the cursor.                                         |
-| `kursor.textIndicator.color`            | `"#000000"` | Text color of the language indicator.                                        |
-| `kursor.textIndicator.backgroundColor`  | `"#FF8C00"` | Background color of the text indicator. Leave empty for no background.       |
+| `kursor.textIndicator.color`            | `"#FF8C00"` | Text color of the language indicator.                                        |
+| `kursor.textIndicator.backgroundColor`  | `""`        | Background color of the text indicator. Leave empty for no background.       |
 | `kursor.pollingInterval`                | `500`       | Keyboard layout polling interval in milliseconds (100-5000).                 |
 
 
