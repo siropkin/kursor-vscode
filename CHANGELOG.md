@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-02-24
+
+### Added
+
+- Add support for Apple's built-in Chinese input methods on macOS (Pinyin - Simplified, Pinyin - Traditional, Wubi, Shuangpin, Zhuyin, Cangjie).
+
 ## [0.2.1] - 2026-02-24
 
 ### Fixed
@@ -63,7 +69,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Command to detect current keyboard layout and set as default.
 - Support for Sogou Pinyin and Rime Squirrel input methods on macOS.
 
-[Unreleased]: https://github.com/siropkin/kursor-vscode/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/siropkin/kursor-vscode/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/siropkin/kursor-vscode/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/siropkin/kursor-vscode/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/siropkin/kursor-vscode/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/siropkin/kursor-vscode/compare/v0.1.3...v0.1.4

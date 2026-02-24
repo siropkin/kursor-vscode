@@ -7,6 +7,18 @@ export const MacStandardKeyboardVariants: Record<string, string> = {
     '-2354': 'UK',    // Ukrainian
 };
 
+// Apple built-in Chinese Input Methods
+export const MacAppleChineseVariants: Record<string, string> = {
+    'com.apple.inputmethod.SCIM': 'ZH',
+    'com.apple.inputmethod.SCIM.ITABC': 'ZH',
+    'com.apple.inputmethod.SCIM.WBX': 'ZH',
+    'com.apple.inputmethod.SCIM.Shuangpin': 'ZH',
+    'com.apple.inputmethod.TCIM': 'ZH',
+    'com.apple.inputmethod.TCIM.Zhuyin': 'ZH',
+    'com.apple.inputmethod.TCIM.Cangjie': 'ZH',
+    'com.apple.inputmethod.TCIM.Pinyin': 'ZH',
+};
+
 // Sogou Pinyin Layouts https://pinyin.sogou.com/mac
 export const MacSogouPinyinVariants: Record<string, string> = {
     'com.sogou.inputmethod.pinyin': 'ZH',

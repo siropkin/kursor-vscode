@@ -2,6 +2,7 @@ import { execFile } from 'child_process';
 import { KeyboardLayout } from './keyboardLayout';
 import {
     MacStandardKeyboardVariants,
+    MacAppleChineseVariants,
     MacSogouPinyinVariants,
     MacRimeSquirrelVariants,
     MacLayoutNameToLocale,
@@ -57,11 +58,12 @@ function parseKeyboardEntry(content: string): KeyboardLayout | null {
 }
 
 function parseInputMethodEntry(content: string): KeyboardLayout | null {
-    // Check for Input Mode (Sogou Pinyin, Rime Squirrel, etc.)
+    // Check for Input Mode (Apple Chinese, Sogou Pinyin, Rime Squirrel, etc.)
     const inputModeMatch = content.match(/"Input Mode"\s*=\s*"([^"]+)"/);
     if (inputModeMatch) {
         const inputMode = inputModeMatch[1];
         const variant =
+            MacAppleChineseVariants[inputMode] ??
             MacSogouPinyinVariants[inputMode] ??
             MacRimeSquirrelVariants[inputMode];
         if (variant) return { language: '', country: '', variant };
@@ -72,6 +74,7 @@ function parseInputMethodEntry(content: string): KeyboardLayout | null {
     if (bundleIdMatch) {
         const bundleId = bundleIdMatch[1];
         const variant =
+            MacAppleChineseVariants[bundleId] ??
             MacSogouPinyinVariants[bundleId] ??
             MacRimeSquirrelVariants[bundleId];
         if (variant) return { language: '', country: '', variant };

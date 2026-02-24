@@ -32,7 +32,7 @@ This feature is particularly beneficial for developers juggling multiple languag
 - **Caps Lock Indicator:** Shows the Caps Lock status on the cursor (limited platform support).
 - **Customization:** Customize the language indicator's colors and background.
 - **Supported Operating Systems:** Available on Windows, macOS, and Linux.
-- **Supported Languages And Input Methods:** Supports a wide range of languages and input methods, including [Sogou Pinyin](https://pinyin.sogou.com/mac) and [Squirrel](https://rime.im) Zhuyin methods on macOS.
+- **Supported Languages And Input Methods:** Supports a wide range of languages and input methods, including Apple's built-in Chinese input methods (Pinyin, Wubi, Zhuyin, Cangjie), [Sogou Pinyin](https://pinyin.sogou.com/mac), and [Squirrel](https://rime.im) on macOS.
 
 
 ## Usage
@@ -64,7 +64,7 @@ You can customize Kursor's settings to suit your preferences:
 ## Platform Notes
 
 ### macOS
-Uses `defaults read` to detect the current input source. Supports standard keyboard layouts and input methods (Sogou Pinyin, Rime Squirrel).
+Uses `defaults read` to detect the current input source. Supports standard keyboard layouts and input methods (Apple's built-in Chinese IME, Sogou Pinyin, Rime Squirrel).
 
 ### Windows
 Uses PowerShell with `System.Windows.Forms.InputLanguage` API. First detection may be slightly slower due to PowerShell startup.

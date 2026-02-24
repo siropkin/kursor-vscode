@@ -2,7 +2,7 @@
   "name": "kursor",
   "displayName": "Kursor",
   "description": "Displays keyboard layout indicator near the cursor and optionally changes cursor color for non-default languages",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "publisher": "siropkin",
   "license": "Apache-2.0",
   "repository": {
