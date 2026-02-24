@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-02-24
+
 ### Fixed
 
 - Fix text indicator position on the very last line of a file (empty trailing line).
@@ -61,7 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Command to detect current keyboard layout and set as default.
 - Support for Sogou Pinyin and Rime Squirrel input methods on macOS.
 
-[Unreleased]: https://github.com/siropkin/kursor-vscode/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/siropkin/kursor-vscode/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/siropkin/kursor-vscode/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/siropkin/kursor-vscode/compare/v0.1.4...v0.2.0
 [0.1.4]: https://github.com/siropkin/kursor-vscode/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/siropkin/kursor-vscode/compare/v0.1.0...v0.1.3
