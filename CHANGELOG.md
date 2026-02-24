@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Fixed
 
 - Fix text indicator position on the very last line of a file (empty trailing line).
+- Fix keyboard layout detection on Ubuntu X11 sessions (DESKTOP_SESSION=ubuntu-xorg).
+- Add keyboard layout detection support for all GNOME-based desktops (Fedora, Pop!_OS, etc.) on both X11 and Wayland via gsettings.
 
 ## [0.2.0] - 2026-02-23
 

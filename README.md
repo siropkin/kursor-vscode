@@ -70,9 +70,9 @@ Uses `defaults read` to detect the current input source. Supports standard keybo
 Uses PowerShell with `System.Windows.Forms.InputLanguage` API. First detection may be slightly slower due to PowerShell startup.
 
 ### Linux
-- **Ubuntu/GNOME:** Uses `gsettings` to read the most recently used input source.
-- **X11:** Uses `setxkbmap` and `xset` to determine the active layout.
-- **Wayland:** Not yet supported.
+- **GNOME desktops** (Ubuntu, Fedora, Pop!_OS, etc.): Uses `gsettings` to read the most recently used input source. Works on both X11 and Wayland.
+- **Other X11 desktops:** Falls back to `setxkbmap` and `xset` to determine the active layout.
+- **Non-GNOME Wayland:** Not yet supported.
 
 
 ## Feedback and Suggestions

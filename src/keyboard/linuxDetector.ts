@@ -11,8 +11,9 @@ function exec(command: string, args: string[]): Promise<string> {
     });
 }
 
-let distribution: string | undefined;
-let desktopGroup: string | undefined;
+let distribution = '';
+let desktopGroup = '';
+let desktopEnvironment = '';
 let availableKeyboardLayouts: string[] = [];
 let initialized = false;
 
@@ -20,7 +21,16 @@ function initLinuxConfig(): void {
     if (initialized) return;
     distribution = (process.env['DESKTOP_SESSION'] ?? '').toLowerCase();
     desktopGroup = (process.env['XDG_SESSION_TYPE'] ?? '').toLowerCase();
+    desktopEnvironment = (process.env['XDG_CURRENT_DESKTOP'] ?? '').toLowerCase();
     initialized = true;
+}
+
+function isGnomeDesktop(): boolean {
+    return distribution.startsWith('ubuntu') || desktopEnvironment.includes('gnome');
+}
+
+function isWayland(): boolean {
+    return desktopGroup === 'wayland';
 }
 
 async function getUbuntuLayout(): Promise<KeyboardLayout> {
@@ -77,12 +87,11 @@ async function getOtherLinuxLayout(): Promise<KeyboardLayout> {
 export async function detectLinuxLayout(): Promise<KeyboardLayout> {
     initLinuxConfig();
 
-    if (distribution === 'ubuntu') {
+    if (isGnomeDesktop()) {
         return getUbuntuLayout();
     }
 
-    if (desktopGroup === 'wayland') {
-        // Wayland detection is not yet supported (same as IntelliJ)
+    if (isWayland()) {
         return EMPTY;
     }
 
