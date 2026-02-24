@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { KursorConfig } from './config';
 
-type IndicatorMode = 'midline' | 'endline' | 'emptyline';
+type IndicatorMode = 'midline' | 'endline' | 'emptyline' | 'emptyline-prev';
 
 let currentDecorationType: vscode.TextEditorDecorationType | undefined;
 let currentEditor: vscode.TextEditor | undefined;
@@ -62,6 +62,18 @@ function createDecorationType(
         } else {
             textDecorationStyles.push('width: 0', 'overflow: visible');
         }
+    } else if (mode === 'emptyline-prev') {
+        textDecorationStyles.push(
+            'display: inline-block',
+            'position: relative',
+            'top: calc(1lh - 0.9em)',
+            'left: 0.4em',
+        );
+        if (hasBg) {
+            textDecorationStyles.push(`margin-right: -${text.length}ch`);
+        } else {
+            textDecorationStyles.push('width: 0', 'overflow: visible');
+        }
     } else {
         textDecorationStyles.push(
             'display: inline-block',
@@ -93,7 +105,11 @@ function getIndicatorMode(editor: vscode.TextEditor): IndicatorMode {
     const cursor = editor.selection.active;
     const line = editor.document.lineAt(cursor.line);
     if (line.range.end.character === 0) {
-        return 'emptyline';
+        const nextLine = cursor.line + 1;
+        const hasNextLine =
+            nextLine < editor.document.lineCount &&
+            editor.document.lineAt(nextLine).range.end.character > 0;
+        return hasNextLine ? 'emptyline' : 'emptyline-prev';
     }
     if (cursor.character >= line.range.end.character) {
         return 'endline';
@@ -115,6 +131,9 @@ function getDecorationRange(editor: vscode.TextEditor, mode: IndicatorMode): vsc
                 return new vscode.Range(start, start.translate(0, 1));
             }
         }
+        return new vscode.Range(cursor, cursor);
+    }
+    if (mode === 'emptyline-prev') {
         if (cursor.line > 0) {
             const prevLine = editor.document.lineAt(cursor.line - 1);
             const endChar = prevLine.range.end.character;

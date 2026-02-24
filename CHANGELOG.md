@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix text indicator position on the very last line of a file (empty trailing line).
+
 ## [0.2.0] - 2026-02-23
 
 ### Changed
